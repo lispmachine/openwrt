@@ -21,7 +21,10 @@ define Device/extreme-networks_ws-ap3825i
   DEVICE_PACKAGES := kmod-ath10k ath10k-firmware-qca989x
   BLOCKSIZE := 128k
   KERNEL = kernel-bin | lzma | fit lzma $(KDIR)/image-$$(DEVICE_DTS).dtb
-  IMAGES := sysupgrade.bin
+  KERNEL_SIZE := 8m
+  KERNEL_INITRAMFS := copy-file $(KDIR)/vmlinux-initramfs | uImage none
+  IMAGES := sysupgrade.bin fdt.bin
+  IMAGE/fdt.bin := append-dtb
   IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
 endef
 TARGET_DEVICES += extreme-networks_ws-ap3825i
