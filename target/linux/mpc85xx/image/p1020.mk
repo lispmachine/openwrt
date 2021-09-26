@@ -15,6 +15,17 @@ define Device/aerohive_hiveap-330
 endef
 TARGET_DEVICES += aerohive_hiveap-330
 
+define Device/extreme-networks_ws-ap3825i
+  DEVICE_VENDOR := Extreme Networks
+  DEVICE_MODEL := WS-AP3825i
+  DEVICE_PACKAGES := kmod-ath10k ath10k-firmware-qca989x
+  BLOCKSIZE := 128k
+  KERNEL = kernel-bin | lzma | fit lzma $(KDIR)/image-$$(DEVICE_DTS).dtb
+  IMAGES := sysupgrade.bin
+  IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
+endef
+TARGET_DEVICES += extreme-networks_ws-ap3825i
+
 define Device/enterasys_ws-ap3710i
   DEVICE_VENDOR := Enterasys
   DEVICE_MODEL := WS-AP3710i

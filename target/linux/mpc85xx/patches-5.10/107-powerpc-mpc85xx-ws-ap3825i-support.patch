@@ -1,30 +1,31 @@
 --- a/arch/powerpc/platforms/85xx/Kconfig
 +++ b/arch/powerpc/platforms/85xx/Kconfig
-@@ -71,6 +71,17 @@ config PANDA
- 	  This board is a Concurrent Dual-Band wireless access point with a
- 	  Freescale P1020 SoC.
+@@ -49,6 +49,16 @@ config BSC9132_QDS
+ 	  and dual StarCore SC3850 DSP cores.
+ 	  Manufacturer : Freescale Semiconductor, Inc
  
-+config WS_AP3710I
-+	bool "Enterasys WS-AP3710i"
++config WS_AP3825I
++	bool "Extreme Networks WS-AP3825i"
 +	select DEFAULT_UIMAGE
 +	select ARCH_REQUIRE_GPIOLIB
 +	select GPIO_MPC8XXX
 +	help
-+	  This option enables support for the Enterasys WS-AP3710i board.
-+
++	  This option enables support for the Extreme Networks WS-AP3825i board.
 +	  This board is a Concurrent Dual-Band wireless access point with a
 +	  Freescale P1020 SoC.
 +
  config MPC8540_ADS
  	bool "Freescale MPC8540 ADS"
  	select DEFAULT_UIMAGE
+diff --git a/arch/powerpc/platforms/85xx/Makefile b/arch/powerpc/platforms/85xx/Makefile
+index d1dd0dca5..2b57c5421 100644
 --- a/arch/powerpc/platforms/85xx/Makefile
 +++ b/arch/powerpc/platforms/85xx/Makefile
-@@ -24,6 +24,7 @@ obj-$(CONFIG_P1022_RDK)   += p1022_rdk.o
+@@ -22,6 +22,7 @@ obj-$(CONFIG_P1022_DS)    += p1022_ds.o
+ obj-$(CONFIG_P1022_RDK)   += p1022_rdk.o
  obj-$(CONFIG_P1023_RDB)   += p1023_rdb.o
- obj-$(CONFIG_PANDA)       += panda.o
  obj-$(CONFIG_TWR_P102x)   += twr_p102x.o
-+obj-$(CONFIG_WS_AP3710I)  += ws-ap3710i.o
++obj-$(CONFIG_WS_AP3825I)  += ws-ap3825i.o
  obj-$(CONFIG_CORENET_GENERIC)   += corenet_generic.o
  obj-$(CONFIG_FB_FSL_DIU)	+= t1042rdb_diu.o
- obj-$(CONFIG_RED_15W_REV1)	+= red15w_rev1.o
+ obj-$(CONFIG_STX_GP3)	  += stx_gp3.o
