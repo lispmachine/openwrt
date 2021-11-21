@@ -22,7 +22,7 @@ TARGET_DEVICES += aerohive_hiveap-330
 define Device/aerohive_hiveap-370
   $(Device/aerohive_hiveap)
   DEVICE_MODEL := HiveAP-370
-  DEVICE_PACKAGES += kmod-ath10k-ct ath10k-firmware-qca988x-ct kmod-ath9k nand-utils
+  DEVICE_PACKAGES += kmod-ath10k-ct ath10k-firmware-qca988x-ct kmod-ath9k nand-utils block-mount
   KERNEL_SIZE := 16m
   KERNEL := copy-file $(KDIR)/vmlinux-initramfs | uImage none
   IMAGES := fdt.bin sysupgrade.bin
