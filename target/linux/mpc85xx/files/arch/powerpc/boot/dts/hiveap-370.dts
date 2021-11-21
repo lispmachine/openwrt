@@ -25,7 +25,7 @@
 	};
 
 	chosen {
-		bootargs-override = "console=ttyS0,9600 ubi.mtd=9,2048";
+		bootargs-override = "console=ttyS0,9600 ubi.mtd=9,512";
 	};
 
 	memory {
