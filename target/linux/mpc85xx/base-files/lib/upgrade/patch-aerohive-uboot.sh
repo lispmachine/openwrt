@@ -24,12 +24,7 @@ patch_aerohive_hiveap_370_uboot() {
 		strings -td < ${tmpd}/mtd${index} | grep '^ *[0-9]* *\(run owrt_boot\|setenv bootargs\).*nand read' |
 			awk '{print $1}' |
 			while read offset; do
-				if [ "${part}" = "Uboot-backup" ]; then
-					boot_type=b
-				else
-					boot_type=a
-				fi
-				echo -n "run owrt_boot_${boot_type};          " | dd of=${tmpd}/mtd${index}_patched bs=1 seek=${offset} conv=notrunc
+				echo -n "run owrt_boot_a;          " | dd of=${tmpd}/mtd${index}_patched bs=1 seek=${offset} conv=notrunc
 			done;
 
 		# Write
