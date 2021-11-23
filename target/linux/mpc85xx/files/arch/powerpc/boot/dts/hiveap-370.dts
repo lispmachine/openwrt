@@ -13,7 +13,7 @@
 		led-upgrade = &led_status;
 		label-mac-device = &enet0;
 	};
-	
+
 	leds {
 		compatible = "gpio-leds";
 		led_status: status {
@@ -35,7 +35,7 @@
 	board_lbc: lbc: localbus@ffe05000 {
 		reg = <0x0 0xffe05000 0x0 0x1000>;
 		ranges = <0x0 0x0 0x0 0xffa00000 0x100000>;
-		
+
 		flash@0,0 {
 					#address-cells = <0x1>;
 					#size-cells = <0x1>;
@@ -44,52 +44,47 @@
 					bank-width = <0x2>;
 					device-width = <0x1>;
 					nand-ecc-mode = "none";
-					
+
 					partition@0 {
 							reg = <0x0 0x20000>;
 							label = "0Uboot";
 					};
-					
+
 					partition@20000 {
 							reg = <0x20000 0x200000>;
 							label = "Uboot";
 					};
-					
+
 					partition@220000 {
 							reg = <0x220000 0x200000>;
 							label = "Uboot-backup";
 					};
-					
+
 					partition@420000 {
 							reg = <0x420000 0x40000>;
 							label = "Uboot Env";
 					};
-					
+
 					partition@460000 {
 							reg = <0x460000 0x40000>;
 							label = "Boot Info";
 					};
-					
+
 					partition@4a0000 {
 							reg = <0x4a0000 0x40000>;
 							label = "Static Boot Info";
 					};
-					
+
 					hwinfo: partition@4e0000 {
 							reg = <0x4e0000 0x40000>;
 							label = "Hardware Info";
 					};
-					
+
 					partition@520000 {
-							reg = <0x520000 0x4000000>;
+							reg = <0x520000 0x4080000>;
 							label = "kernel";
 					};
-					
-					partition@4520000 {
-							reg = <0x4520000 0x80000>;
-							label = "dtb";
-					};
-					
+
 					partition@45A0000 {
 							reg = <0x45A0000 0x3BA60000>;
 							label = "ubi";
@@ -157,7 +152,7 @@
 		mdio@26000 {
 			status = "disabled";
 		};
-		
+
 		enet0: ethernet@b0000 {
 			status = "disabled";
 		};
@@ -204,7 +199,7 @@
 		usb@23000 {
 			status = "disabled";
 		};
-		
+
 		crypto@30000 {
 			compatible = "fsl,sec3.3", "fsl,sec3.1", "fsl,sec3.0", "fsl,sec2.4", "fsl,sec2.2", "fsl,sec2.1", "fsl,sec2.0";
 			reg = <0x30000 0x10000>;
