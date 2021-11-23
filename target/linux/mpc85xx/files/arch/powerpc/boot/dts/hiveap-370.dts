@@ -36,7 +36,7 @@
 		reg = <0x0 0xffe05000 0x0 0x1000>;
 		ranges = <0x0 0x0 0x0 0xffa00000 0x100000>;
 
-		flash@0,0 {
+		nand@0,0 {
 			#address-cells = <0x1>;
 			#size-cells = <0x1>;
 			compatible = "fsl,elbc-fcm-nand";
@@ -45,49 +45,62 @@
 			device-width = <0x1>;
 			nand-ecc-mode = "none";
 
-			partition@0 {
-				reg = <0x0 0x20000>;
-				label = "0Uboot";
-			};
+			partitions {
+				compatible = "fixed-partitions";
+				#address-cells = <1>;
+				#size-cells = <1>;
 
-			partition@20000 {
-				reg = <0x20000 0x200000>;
-				label = "Uboot";
-			};
+				partition@0 {
+					reg = <0x0 0x20000>;
+					label = "0Uboot";
+					read-only;
+				};
 
-			partition@220000 {
-				reg = <0x220000 0x200000>;
-				label = "Uboot-backup";
-			};
+				partition@20000 {
+					reg = <0x20000 0x200000>;
+					label = "Uboot";
+					read-only;
+				};
 
-			partition@420000 {
-				reg = <0x420000 0x40000>;
-				label = "Uboot Env";
-			};
+				partition@220000 {
+					reg = <0x220000 0x200000>;
+					label = "Uboot-backup";
+					read-only;
+				};
 
-			partition@460000 {
-				reg = <0x460000 0x40000>;
-				label = "Boot Info";
-			};
+				partition@420000 {
+					reg = <0x420000 0x40000>;
+					label = "Uboot Env";
+					read-only;
+				};
 
-			partition@4a0000 {
-				reg = <0x4a0000 0x40000>;
-				label = "Static Boot Info";
-			};
+				partition@460000 {
+					reg = <0x460000 0x40000>;
+					label = "Boot Info";
+					read-only;
+				};
 
-			hwinfo: partition@4e0000 {
-				reg = <0x4e0000 0x40000>;
-				label = "Hardware Info";
-			};
+				partition@4a0000 {
+					reg = <0x4a0000 0x40000>;
+					label = "Static Boot Info";
+					read-only;
+				};
 
-			partition@520000 {
-				reg = <0x520000 0x4080000>;
-				label = "kernel";
-			};
+				hwinfo: partition@4e0000 {
+					reg = <0x4e0000 0x40000>;
+					label = "Hardware Info";
+					read-only;
+				};
 
-			partition@45A0000 {
-				reg = <0x45A0000 0x3BA60000>;
-				label = "ubi";
+				partition@520000 {
+					reg = <0x520000 0x4080000>;
+					label = "kernel";
+				};
+
+				partition@45A0000 {
+					reg = <0x45a0000 0x3ba60000>;
+					label = "ubi";
+				};
 			};
 		};
 	};
@@ -163,7 +176,8 @@
 			compatible = "fsl,etsec2-mdio";
 			phy-handle = <&phy0>;
 			phy-connection-type = "rgmii-id";
-			mtd-mac-address = <&hwinfo 0>;
+			nvmem-cells = <&macaddr_hwinfo_0>;
+			nvmem-cell-names = "mac-address";
 		};
 
 		enet2: ethernet@b2000 {
@@ -172,8 +186,9 @@
 			compatible = "fsl,etsec2-mdio";
 			phy-handle = <&phy1>;
 			phy-connection-type = "rgmii-id";
-			mtd-mac-address = <&hwinfo 0>;
-			mtd-mac-address-increment = <1>;
+			nvmem-cells = <&macaddr_hwinfo_0>;
+			nvmem-cell-names = "mac-address";
+			mac-address-increment = <1>;
 		};
 
 		gpio0: gpio-controller@fc00 {
@@ -287,4 +302,15 @@
 		};
 	};
 };
+
+&hwinfo {
+	compatible = "nvmem-cells";
+	#address-cells = <1>;
+	#size-cells = <1>;
+
+	macaddr_hwinfo_0: macaddr@0 {
+		reg = <0x0 0x6>;
+	};
+};
+
 /include/ "fsl/p1020si-post.dtsi"
