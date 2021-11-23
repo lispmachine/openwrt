@@ -5,8 +5,10 @@ define Device/aerohive_hiveap
   KERNEL := kernel-bin | gzip | uImage gzip
   KERNEL_SIZE := 8m
   KERNEL_INITRAMFS := copy-file $(KDIR)/vmlinux-initramfs | uImage none
-  IMAGES := fdt.bin sysupgrade.bin
-  IMAGE/fdt.bin := append-dtb | pad-to 256k | check-size 256k
+  IMAGE/fdt.bin := append-dtb
+  IMAGES := fdt.bin sysupgrade.bin kernel.bin rootfs.bin
+  IMAGE/kernel.bin := append-kernel
+  IMAGE/rootfs.bin := append-rootfs | pad-rootfs
 endef
 
 define Device/aerohive_hiveap-330
@@ -22,11 +24,10 @@ TARGET_DEVICES += aerohive_hiveap-330
 define Device/aerohive_hiveap-370
   $(Device/aerohive_hiveap)
   DEVICE_MODEL := HiveAP-370
-  DEVICE_PACKAGES += kmod-ath10k-ct ath10k-firmware-qca988x-ct kmod-ath9k nand-utils block-mount
-  KERNEL_SIZE := 16m
-  KERNEL := copy-file $(KDIR)/vmlinux-initramfs | uImage none
-  IMAGES := fdt.bin sysupgrade.bin
-  IMAGE/sysupgrade.bin := sysupgrade-dtb-tar $(KDIR)/image-$$(DEVICE_DTS).dtb | append-metadata
+  DEVICE_PACKAGES += kmod-ath10k-ct ath10k-firmware-qca988x-ct nand-utils block-mount
+  KERNEL := kernel-bin | uImage none
+  KERNEL_INITRAMFS := kernel-bin | uImage none
+  IMAGE/sysupgrade.bin := append-dtb | pad-to 256k | append-kernel | sysupgrade-tar kernel=$$$$@ | append-metadata
 endef
 TARGET_DEVICES += aerohive_hiveap-370
 
