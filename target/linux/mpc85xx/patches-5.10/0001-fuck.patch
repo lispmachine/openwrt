@@ -1,0 +1,55 @@
+From 0cad094c81c30c458f67090e18fc29993439e1c2 Mon Sep 17 00:00:00 2001
+From: Martin Kennedy <hurricos@gmail.com>
+Date: Sun, 26 Dec 2021 15:07:32 -0500
+Subject: [PATCH] fuck
+
+
+diff --git a/drivers/spi/spi-gpio.c b/drivers/spi/spi-gpio.c
+index 0584f4d..2f1055c 100644
+--- a/drivers/spi/spi-gpio.c
++++ b/drivers/spi/spi-gpio.c
+@@ -200,6 +200,7 @@ static void spi_gpio_chipselect(struct spi_device *spi, int is_active)
+ {
+ 	struct spi_gpio *spi_gpio = spi_to_spi_gpio(spi);
+ 
++	printk(KERN_ERR "__func__, __LINE__,");
+ 	/* set initial clock line level */
+ 	if (is_active)
+ 		gpiod_set_value_cansleep(spi_gpio->sck, spi->mode & SPI_CPOL);
+@@ -219,6 +220,7 @@ static int spi_gpio_setup(struct spi_device *spi)
+ 	int			status = 0;
+ 	struct spi_gpio		*spi_gpio = spi_to_spi_gpio(spi);
+ 
++	printk(KERN_ERR "__func__, __LINE__,");
+ 	/*
+ 	 * The CS GPIOs have already been
+ 	 * initialized from the descriptor lookup.
+@@ -240,7 +242,7 @@ static int spi_gpio_set_direction(struct spi_device *spi, bool output)
+ {
+ 	struct spi_gpio *spi_gpio = spi_to_spi_gpio(spi);
+ 	int ret;
+-
++	printk(KERN_ERR "__func__, __LINE__,");
+ 	if (output)
+ 		return gpiod_direction_output(spi_gpio->mosi, 1);
+ 
+@@ -305,7 +307,7 @@ static int spi_gpio_probe_dt(struct platform_device *pdev,
+ {
+ 	master->dev.of_node = pdev->dev.of_node;
+ 	master->use_gpio_descriptors = true;
+-
++	printk(KERN_ERR "__func__, __LINE__,");
+ 	return 0;
+ }
+ #else
+@@ -358,6 +360,7 @@ static int spi_gpio_probe(struct platform_device *pdev)
+ 	struct device			*dev = &pdev->dev;
+ 	struct spi_bitbang		*bb;
+ 
++	printk(KERN_ERR "__func__, __LINE__,");
+ 	master = devm_spi_alloc_master(dev, sizeof(*spi_gpio));
+ 	if (!master)
+ 		return -ENOMEM;
+-- 
+2.25.1
+
