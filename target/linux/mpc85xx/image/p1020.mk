@@ -39,3 +39,15 @@ define Device/ocedo_panda
 endef
 TARGET_DEVICES += ocedo_panda
 
+define Device/hp_msm466
+  DEVICE_VENDOR := HP
+  DEVICE_MODEL := MSM466
+  BLOCKSIZE := 128k
+  IMAGES := sysupgrade.bin
+  KERNEL_SIZE := 31m
+  KERNEL := kernel-bin | uImage none
+  KERNEL_INITRAMFS := kernel-bin | uImage none
+  IMAGE/sysupgrade.bin := append-dtb | pad-to 256k | append-kernel | \
+	sysupgrade-tar kernel=$$$$@ | append-metadata
+endef
+TARGET_DEVICES += hp_msm466

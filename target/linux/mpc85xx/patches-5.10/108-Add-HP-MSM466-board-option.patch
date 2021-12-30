@@ -1,0 +1,43 @@
+From cccdb3f36fad2b91663ac23881d781b49ec306b8 Mon Sep 17 00:00:00 2001
+From: Martin Kennedy <hurricos@gmail.com>
+Date: Thu, 30 Dec 2021 09:09:57 -0500
+Subject: [PATCH] Add HP MSM466 board option
+
+
+diff --git a/arch/powerpc/platforms/85xx/Kconfig b/arch/powerpc/platforms/85xx/Kconfig
+index 764b916..c3bd7f0 100644
+--- a/arch/powerpc/platforms/85xx/Kconfig
++++ b/arch/powerpc/platforms/85xx/Kconfig
+@@ -82,6 +82,17 @@ config WS_AP3710I
+ 	  This board is a Concurrent Dual-Band wireless access point with a
+ 	  Freescale P1020 SoC.
+ 
++config MSM466
++	bool "HP MSM466"
++	select DEFAULT_UIMAGE
++	select ARCH_REQUIRE_GPIOLIB
++	select GPIO_MPC8XXX
++	help
++	  This option enables support for the Hewlett-Packard MSM466 board.
++
++	  This board is a Concurrent Dual-Band wireless access point with a
++	  Freescale P1020 SoC.
++
+ config MPC8540_ADS
+ 	bool "Freescale MPC8540 ADS"
+ 	select DEFAULT_UIMAGE
+diff --git a/arch/powerpc/platforms/85xx/Makefile b/arch/powerpc/platforms/85xx/Makefile
+index 443b44b..59c4ea7 100644
+--- a/arch/powerpc/platforms/85xx/Makefile
++++ b/arch/powerpc/platforms/85xx/Makefile
+@@ -27,6 +27,7 @@ obj-$(CONFIG_P1023_RDB)   += p1023_rdb.o
+ obj-$(CONFIG_PANDA)       += panda.o
+ obj-$(CONFIG_TWR_P102x)   += twr_p102x.o
+ obj-$(CONFIG_WS_AP3710I)  += ws-ap3710i.o
++obj-$(CONFIG_MSM466)      += msm466.o
+ obj-$(CONFIG_CORENET_GENERIC)   += corenet_generic.o
+ obj-$(CONFIG_FB_FSL_DIU)	+= t1042rdb_diu.o
+ obj-$(CONFIG_RED_15W_REV1)	+= red15w_rev1.o
+-- 
+2.25.1
+
