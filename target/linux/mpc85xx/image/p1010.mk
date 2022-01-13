@@ -35,3 +35,14 @@ define Device/sophos_red-15w-rev1
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 endef
 TARGET_DEVICES += sophos_red-15w-rev1
+
+define Device/adtran_bsap-2030
+  DEVICE_VENDOR := Adtran
+  DEVICE_MODEL := BlueSocket AP-2030
+  # Original firmware uses a dedicated DTB-partition.
+  # The bootloader however supports FIT-images.
+  KERNEL = kernel-bin | lzma | fit lzma $(KDIR)/image-$$(DEVICE_DTS).dtb
+  IMAGES := sysupgrade.bin
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+endef
+TARGET_DEVICES += adtran_bsap-2030

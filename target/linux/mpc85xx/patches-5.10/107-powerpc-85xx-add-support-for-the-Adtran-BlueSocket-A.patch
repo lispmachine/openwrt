@@ -1,0 +1,43 @@
+From a116308ea302b16d0a4d39792c79358c8fc39b16 Mon Sep 17 00:00:00 2001
+From: Martin Kennedy <hurricos@gmail.com>
+Date: Thu, 13 Jan 2022 17:48:53 -0500
+Subject: [PATCH] powerpc: 85xx: add support for the Adtran BlueSocket AP-2030
+
+
+diff --git a/arch/powerpc/platforms/85xx/Kconfig b/arch/powerpc/platforms/85xx/Kconfig
+index 764b916..03e016f 100644
+--- a/arch/powerpc/platforms/85xx/Kconfig
++++ b/arch/powerpc/platforms/85xx/Kconfig
+@@ -25,6 +25,17 @@ config FSL_85XX_CACHE_SRAM
+ 	  cache-sram-size and cache-sram-offset kernel boot
+ 	  parameters should be passed when this option is enabled.
+ 
++config BSAP_2030
++	bool "Adtran BlueSocket AP-2030"
++	select DEFAULT_UIMAGE
++	select ARCH_REQUIRE_GPIOLIB
++	select GPIO_MPC8XXX
++	help
++	  This option enables support for the Adtran BSAP-2030 board.
++
++	  This board is a Concurrent Dual-Band wireless access point with a
++	  Freescale P1010E SoC.
++
+ config BSC9131_RDB
+ 	bool "Freescale BSC9131RDB"
+ 	select DEFAULT_UIMAGE
+diff --git a/arch/powerpc/platforms/85xx/Makefile b/arch/powerpc/platforms/85xx/Makefile
+index 443b44b..f34b8f2 100644
+--- a/arch/powerpc/platforms/85xx/Makefile
++++ b/arch/powerpc/platforms/85xx/Makefile
+@@ -9,6 +9,7 @@ endif
+ 
+ obj-y += common.o
+ 
++obj-$(CONFIG_BSAP_2030) += bsap-2030.o
+ obj-$(CONFIG_BSC9131_RDB) += bsc913x_rdb.o
+ obj-$(CONFIG_BSC9132_QDS) += bsc913x_qds.o
+ obj-$(CONFIG_C293_PCIE)   += c293pcie.o
+-- 
+2.25.1
+
