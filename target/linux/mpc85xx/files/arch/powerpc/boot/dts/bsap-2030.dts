@@ -1,0 +1,179 @@
+// SPDX-License-Identifier: GPL-2.0-or-later or MIT
+/include/ "fsl/p1010si-pre.dtsi"
+
+/ {
+	model = "Adtran BlueSocket AP-2030";
+	compatible = "adtran,bsap-2030";
+
+	chosen {
+		bootargs-override = "console=ttyS0,115200";
+	};
+
+	aliases {
+		ethernet0 = "/soc@ffe00000/ethernet@b0000";
+		ethernet1 = "/soc@ffe00000/ethernet@b1000";
+		label-mac-device = &enet0;
+	};
+
+	memory {
+		device_type = "memory";
+	};
+
+	soc: soc@ffe00000 {
+		ranges = <0x0 0x0 0xffe00000 0x100000>;
+
+		spi0: spi@7000 {
+			cell-index = <0x00>;
+			#address-cells = <0x01>;
+			#size-cells = <0x00>;
+			compatible = "fsl,espi";
+			reg = <0x7000 0x1000>;
+			interrupts = <0x3b 0x02>;
+			interrupt-parent = <0x02>;
+			espi,num-ss-bits = <0x04>;
+			mode = "cpu";
+			fsl,espi-num-chipselects = <0x01>;
+
+			flash@0 {
+				compatible = "spansion,s25fl512s";
+				reg = <0>;
+				spi-max-frequency = <50000000>;
+
+				partitions {
+					compatible = "fixed-partitions";
+					#address-cells = <1>;
+					#size-cells = <1>;
+
+					partition@0 {
+						reg = <0x0 0x4000000>;
+						label = "u-boot";
+						read-only;
+					};
+				};
+			};
+		};
+
+		gpio-controller@f000 {
+			#gpio-cells = <0x02>;
+			compatible = "fsl,mpc8572-gpio";
+			reg = <0xf000 0x100>;
+			interrupts = <0x2f 0x02>;
+			interrupt-parent = <0x02>;
+			gpio-controller;
+		};
+
+		usb@22000 {
+			phy_type = "utmi";
+			dr_mode = "host";
+		};
+
+		mdio@24000 {
+			phy0: ethernet-phy@0 {
+				interrupts = <0x03 0x01>;
+				reg = <0x01>;
+			};
+
+			phy1: ethernet-phy@1 {
+				interrupts = <0x02 0x01>;
+				reg = <0x02>;
+			};
+		};
+
+		mdio@25000 {
+			status = "disabled";
+		};
+
+		mdio@26000 {
+			status = "disabled";
+		};
+
+		enet0: ethernet@b0000 {
+			phy-handle = <&phy0>;
+			phy-connection-type = "rgmii-id";
+		};
+
+		enet1: ethernet@b1000 {
+			phy-handle = <&phy1>;
+			phy-connection-type = "rgmii-id";
+		};
+
+		enet2: ethernet@b2000 {
+			status = "disabled";
+		};
+
+		sdhc@2e000 {
+			status = "disabled";
+		};
+
+		serial1: serial@4600 {
+			status = "disabled";
+		};
+
+		can0: can@1c000 {
+			status = "disabled";
+		};
+
+		can1: can@1d000 {
+			status = "disabled";
+		};
+
+		ptp_clock@b0e00 {
+			compatible = "fsl,etsec-ptp";
+			reg = <0xb0e00 0xb0>;
+			interrupts = <68 2 0 0 69 2 0 0 70 2 0 0>;
+			fsl,cksel       = <1>;
+			fsl,tclk-period	= <5>;
+			fsl,tmr-prsc	= <2>;
+			fsl,tmr-add	= <0xcccccccd>;
+			fsl,tmr-fiper1	= <0x3b9ac9fb>; /* 1PPS */
+			fsl,tmr-fiper2	= <0x00018696>;
+			fsl,max-adj	= <249999999>;
+		};
+	};
+
+	pci0: pcie@ffe09000 {
+		reg = <0 0xffe09000 0 0x1000>;
+		ranges = <0x2000000 0x0 0xa0000000 0 0xa0000000 0x0 0x20000000
+			  0x1000000 0x0 0x00000000 0 0xffc10000 0x0 0x10000>;
+		pcie@0 {
+			ranges = <0x2000000 0x0 0xa0000000
+				  0x2000000 0x0 0xa0000000
+				  0x0 0x20000000
+
+				  0x1000000 0x0 0x0
+				  0x1000000 0x0 0x0
+				  0x0 0x100000>;
+		};
+	};
+
+	pci1: pcie@ffe0a000 {
+		reg = <0 0xffe0a000 0 0x1000>;
+		ranges = <0x2000000 0x0 0x80000000 0 0x80000000 0x0 0x20000000
+			  0x1000000 0x0 0x00000000 0 0xffc00000 0x0 0x10000>;
+		pcie@0 {
+			ranges = <0x2000000 0x0 0x80000000
+				  0x2000000 0x0 0x80000000
+				  0x0 0x20000000
+
+				  0x1000000 0x0 0x0
+				  0x1000000 0x0 0x0
+				  0x0 0x100000>;
+		};
+	};
+
+	ifc: ifc@ffe1e000 {
+		status = "disabled";
+	};
+
+	/* buttons { */
+	/*	compatible = "gpio-keys"; */
+
+	/*	reset { */
+	/*		label = "Reset button"; */
+	/*		gpios = <&gpio0 5 1>; /\* active low *\/ */
+	/*		linux,code = <0x198>; /\* KEY_RESTART *\/ */
+	/*	}; */
+	/* }; */
+};
+
+/include/ "fsl/p1010si-post.dtsi"
