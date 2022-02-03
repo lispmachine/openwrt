@@ -230,6 +230,13 @@ define Device/adtran_bsap192x
   SOC := ar9344
   DEVICE_VENDOR := Adtran
   IMAGE_SIZE := 13312k
+# TODO: Define IMAGE/sysupgrade.bin
+
+# TODO: Define KERNEL
+# e.g. KERNEL := kernel-bin | append-dtb | lzma | pad-to $$(BLOCKSIZE)
+
+# TODO: (maybe?) Define KERNEL_INITRAMFS
+# e.g. KERNEL_INITRAMFS := kernel-bin | append-dtb
 endef
 
 define Device/adtran_bsap1920
