@@ -87,65 +87,65 @@
 			#size-cells = <1>;
 
 			uboot: partition@0 {
-			label = "u-boot";
-			reg = <0x0000000 0x0040000>;
-			read-only;
-		};
+				label = "u-boot";
+				reg = <0x0000000 0x0040000>;
+				read-only;
+			};
 
 			partition@40000 {
-			label = "u-boot-env";
-			reg = <0x0040000 0x0010000>;
-		};
+				label = "u-boot-env";
+				reg = <0x0040000 0x0010000>;
+			};
 
 			partition@50000 {
-			label = "Cert";
-			reg = <0x0050000 0x0040000>;
-		};
+				label = "Cert";
+				reg = <0x0050000 0x0040000>;
+			};
 
 			partition@90000 {
-			label = "Kdump";
-			reg = <0x0090000 0x0170000>;
-		};
+				label = "Kdump";
+				reg = <0x0090000 0x0170000>;
+			};
 
 			partition@200000 {
-			label = "/var";
-			reg = <0x0200000 0x0100000>;
-		};
+				label = "/var";
+				reg = <0x0200000 0x0100000>;
+			};
 
 			partition@300000 {
-			compatible = "denx,uimage";
-			active-if-supplied-root = "31:06";
-			label = "firmware1";
-			reg = <0x0300000 0x0d00000>;
-		};
+				compatible = "denx,uimage";
+				active-if-supplied-root = "31:06";
+				label = "firmware1";
+				reg = <0x0300000 0x0d00000>;
+			};
 
 			partition@1000000 {
-			compatible = "denx,uimage";
-			active-if-supplied-root = "31:08";
-			label = "firmware2";
-			reg = <0x1000000 0x0d00000>;
-		};
+				compatible = "denx,uimage";
+				active-if-supplied-root = "31:08";
+				label = "firmware2";
+				reg = <0x1000000 0x0d00000>;
+			};
 
 			partition@1d00000 {
-			label = "/home";
-			reg = <0x1d00000 0x0100000>;
-		};
+				label = "/home";
+				reg = <0x1d00000 0x0100000>;
+			};
 
 			partition@1e00000 {
-			label = "/log";
-			reg = <0x1e00000 0x0180000>;
-		};
+				label = "/log";
+				reg = <0x1e00000 0x0180000>;
+			};
 
 			senao: partition@1fe0000 {
-			label = "SENAO";
-			reg = <0x1fe0000 0x0010000>;
-			read-only;
-		};
+				label = "SENAO";
+				reg = <0x1fe0000 0x0010000>;
+				read-only;
+			};
 
 			art: partition@1ff0000 {
-			label = "art";
-			reg = <0x1ff0000 0x0010000>;
-			read-only;
+				label = "art";
+				reg = <0x1ff0000 0x0010000>;
+				read-only;
 			};
 		};
 	};
@@ -210,5 +210,4 @@
 	macaddr_senao_0: macaddr@0 {
 		reg = <0x18 0x6>;
 	};
-
 };
