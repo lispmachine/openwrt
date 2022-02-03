@@ -10,6 +10,8 @@ case "$board" in
 	ucidef_set_led_netdev "lan" "LAN" "orange:eth0" "eth0"
 	ucidef_set_led_switch "wan" "WAN" "orange:eth1" "switch0" "0x04"
 	;;
+adtran,bsap1920|\
+adtran,bsap1925|\
 alfa-network,ap121f|\
 alfa-network,ap121fe|\
 avm,fritz450e|\

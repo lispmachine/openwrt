@@ -226,6 +226,24 @@ define Device/adtran_bsap1840
 endef
 TARGET_DEVICES += adtran_bsap1840
 
+define Device/adtran_bsap192x
+  SOC := ar9344
+  DEVICE_VENDOR := Adtran
+  IMAGE_SIZE := 13312k
+endef
+
+define Device/adtran_bsap1920
+  $(Device/adtran_bsap192x)
+  DEVICE_MODEL := Bluesocket BSAP-1920
+endef
+TARGET_DEVICES += adtran_bsap1920
+
+define Device/adtran_bsap1925
+  $(Device/adtran_bsap192x)
+  DEVICE_MODEL := Bluesocket BSAP-1925
+endef
+TARGET_DEVICES += adtran_bsap1925
+
 define Device/airtight_c-75
   SOC := qca9550
   DEVICE_VENDOR := AirTight Networks

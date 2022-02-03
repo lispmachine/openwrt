@@ -47,6 +47,18 @@ platform_do_upgrade() {
 	adtran,bsap1840)
 		redboot_fis_do_upgrade "$1" vmlinux_2
 		;;
+	adtran,bsap1920|\
+	adtran,bsap1925)
+		if [ $(grep -ow 'root=31:0[68]' /proc/cmdline) = "root=31:08" ]
+		then
+			PART_NAME=firmware1
+			fw_setenv boot_bank A
+		else
+			PART_NAME=firmware2
+			fw_setenv boot_bank B
+		fi
+		default_do_upgrade "$1"
+		;;
 	allnet,all-wap02860ac|\
 	engenius,eap1200h|\
 	engenius,eap300-v2|\
