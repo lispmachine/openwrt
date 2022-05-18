@@ -215,6 +215,99 @@ poe_cmd_dump(char *type, unsigned char *data)
 	for (i = 0; i < 12; i++)
 		fprintf(stderr, " 0x%02x", data[i]);
 	fprintf(stderr, "\n");
+	// curl https://svanheule.net/switches/software/broadcom_poe_control_protocol | grep -m1 Set.port.enable -A 200 | sed 's/<[^>]*>//g' | tr -s ' ' | grep -P '^\t' | grep ' .. ' | grep -vw 'ID' | sed -E 's/^\s*//;s/([^ ]*) (.*)/\t\tif (data[0] == 0x\1)\n\t\t\tfprintf(stderr, "\2\\n");/'
+	if (data[0] == 0x00)
+		fprintf(stderr, "Set port enable \n");
+	if (data[0] == 0x02)
+		fprintf(stderr, "Set port map enable \n");
+	if (data[0] == 0x03)
+		fprintf(stderr, "Port reset \n");
+	if (data[0] == 0x05)
+		fprintf(stderr, "Clear counters \n");
+	if (data[0] == 0x06)
+		fprintf(stderr, "Set global port enable \n");
+	if (data[0] == 0x07)
+		fprintf(stderr, "Set global port power limit \n");
+	if (data[0] == 0x09)
+		fprintf(stderr, "System reset \n");
+	if (data[0] == 0x0a)
+		fprintf(stderr, "Set device config \n");
+	if (data[0] == 0x0b)
+		fprintf(stderr, "Set device power management \n");
+	if (data[0] == 0x0e)
+		fprintf(stderr, "Set port to PSE output mapping \n");
+	if (data[0] == 0x10)
+		fprintf(stderr, "Set detection type \n");
+	if (data[0] == 0x11)
+		fprintf(stderr, "Set classification enable \n");
+	if (data[0] == 0x13)
+		fprintf(stderr, "Set disconnect type \n");
+	if (data[0] == 0x15)
+		fprintf(stderr, "Set port power limit type \n");
+	if (data[0] == 0x16)
+		fprintf(stderr, "Set port power budget \n");
+	if (data[0] == 0x17)
+		fprintf(stderr, "Set power management mode \n");
+	if (data[0] == 0x18)
+		fprintf(stderr, "Set global power budget \n");
+	if (data[0] == 0x19)
+		fprintf(stderr, "Set port power pair \n");
+	if (data[0] == 0x1a)
+		fprintf(stderr, "Set port priority \n");
+	if (data[0] == 0x1c)
+		fprintf(stderr, "Set port power-up mode \n");
+	if (data[0] == 0x1d)
+		fprintf(stderr, "Set port mapping \n");
+	if (data[0] == 0x20)
+		fprintf(stderr, "Get system info \n");
+	if (data[0] == 0x21)
+		fprintf(stderr, "Get port status \n");
+	if (data[0] == 0x22)
+		fprintf(stderr, "Get port counters \n");
+	if (data[0] == 0x23)
+		fprintf(stderr, "Get power statistics \n");
+	if (data[0] == 0x25)
+		fprintf(stderr, "Get port config \n");
+	if (data[0] == 0x26)
+		fprintf(stderr, "Get extended port config \n");
+	if (data[0] == 0x27)
+		fprintf(stderr, "Get power management mode \n");
+	if (data[0] == 0x28)
+		fprintf(stderr, "Get all port status \n");
+	if (data[0] == 0x29)
+		fprintf(stderr, "Get all PSE output consumed power \n");
+	if (data[0] == 0x2a)
+		fprintf(stderr, "Get port overview \n");
+	if (data[0] == 0x2b)
+		fprintf(stderr, "Get extended device config - \n");
+	if (data[0] == 0x2c)
+		fprintf(stderr, "Get direct PSE flag \n");
+	if (data[0] == 0x2d)
+		fprintf(stderr, "Get direct PSE status \n");
+	if (data[0] == 0x30)
+		fprintf(stderr, "Get port measurements \n");
+	if (data[0] == 0x41)
+		fprintf(stderr, "Set port LED config \n");
+	if (data[0] == 0x42)
+		fprintf(stderr, "Get port LED config \n");
+	if (data[0] == 0x43)
+		fprintf(stderr, "Set system LED config \n");
+	if (data[0] == 0x44)
+		fprintf(stderr, "Get system LED config \n");
+	if (data[0] == 0x48)
+		fprintf(stderr, "Set port LED map \n");
+	if (data[0] == 0x49)
+		fprintf(stderr, "Get port LED map \n");
+	if (data[0] == 0xaf)
+		fprintf(stderr, "Bootloader mode n/a Controller is still booted in bootloader mode, and is requesting a FW image \n");
+	if (data[0] == 0xe0)
+		fprintf(stderr, "MCU management varies varies Special commands to manage the MCU firmware \n");
+	if (data[0] == 0xfd)
+		fprintf(stderr, "Request incomplete n/a An incomplete request was received \n");
+	if (data[0] == 0xfe)
+		fprintf(stderr, "Request checksum n/a Request frame checksum was incorrect \n");
+	if (data[0] == 0xff)
+		fprintf(stderr, "Not ready n/a Controller was not ready to respond \n");
 }
 
 static int
