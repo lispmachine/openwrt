@@ -149,6 +149,7 @@ define Device/zyxel_gs1900-24hp-v1
   $(Device/zyxel_gs1900)
   SOC := rtl8382
   DEVICE_MODEL := GS1900-24HP
+  DEVICE_PACKAGES += realtek-poe
   DEVICE_VARIANT := v1
   ZYXEL_VERS := AAHM
 endef
